@@ -20,11 +20,11 @@ public class NBody {
         return radius;
     }
 
-    public static Body[] readBodies(String fileName) {
+    public static Planet[] readPlanets(String fileName) {
         final In in = new In(fileName);
         int num_of_body = in.readInt();
         double radius = in.readDouble();
-        Body[] bodies = new Body[num_of_body];
+        Planet[] bodies = new Planet[num_of_body];
 
         for (int i = 0; i < num_of_body; i++) {
             double xP = in.readDouble();
@@ -34,7 +34,7 @@ public class NBody {
             double m = in.readDouble();
             String img = "images/" + in.readString();
 
-            bodies[i] = new Body(xP, yP, xV, yV, m, img);
+            bodies[i] = new Planet(xP, yP, xV, yV, m, img);
 
         }
 
@@ -63,7 +63,7 @@ public class NBody {
         String filename = args[2];
 
         double radius = readRadius(filename);
-        Body[] bodies = readBodies(filename);
+        Planet[] bodies = readPlanets(filename);
 
         // Drawing the Background
         StdDraw.enableDoubleBuffering();
@@ -94,7 +94,7 @@ public class NBody {
             }
 
             StdDraw.picture(0, 0, imageToDraw);
-            for (Body in_bodies_elem : bodies) {
+            for (Planet in_bodies_elem : bodies) {
                 in_bodies_elem.draw();
             }
             StdDraw.show();
