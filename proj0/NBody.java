@@ -11,7 +11,7 @@ public class NBody {
 
     // public int N;
     // public double R;
-    public static String imageToDraw = "images/starfield.jpg";
+    private static String imageToDraw = "images/starfield.jpg";
 
     public static double readRadius(String fileName) {
         final In in = new In(fileName);
@@ -32,13 +32,13 @@ public class NBody {
             double xV = in.readDouble();
             double yV = in.readDouble();
             double m = in.readDouble();
-            String img = in.readString();
+            String img = "images/" + in.readString();
 
             bodies[i] = new Planet(xP, yP, xV, yV, m, img);
 
         }
 
-        /** for each is not working probably because bodies is not iterable */
+        /** for each is not working */
         // for (Body bodies_element : bodies) {
         // double xP = in.readDouble();
         // double yP = in.readDouble();
@@ -49,13 +49,11 @@ public class NBody {
 
         // bodies_element = new Body(xP, yP, xV, yV, m, img);
         // }
-
-        // Body[] bodies_test = bodies;
-
         return bodies;
     }
 
     // Use "javac -encoding utf-8 NBody.java" to compile the method
+    // "java NBody 157788000.0 25000.0 data/planets.txt"
     public static void main(String[] args) {
         // Collecting All Needed Input
         double T = Double.parseDouble(args[0]);
