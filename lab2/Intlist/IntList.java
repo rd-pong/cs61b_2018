@@ -91,18 +91,19 @@ public class IntList {
 //        }
 //        return A;
         //TODO: Iterative
-        if (A == null) {
-            return null;
-        }else if(A.rest == null){
+        if (A == null) { ;
+            return B;
+        } else if (A.rest == null) {
             A.rest = B;
             return A;
+        } else {
+            IntList ptr = A.rest;
+            while (ptr.rest != null) {
+                ptr = ptr.rest;
+            }
+            ptr.rest = B;
+            return A;
         }
-        IntList ptr = A.rest;
-        while (ptr.rest != null) {
-            ptr = ptr.rest;
-        }
-        ptr.rest = B;
-        return A;
     }
 
     /**
@@ -121,18 +122,19 @@ public class IntList {
         //TODO: Iterative
         // http://www.pythontutor.com/java.html#code=public%20class%20IntList%20%7B%0A%20%20%20%20/**%0A%20%20%20%20%20*%20First%20element%20of%20list.%0A%20%20%20%20%20*/%0A%20%20%20%20public%20int%20first%3B%0A%20%20%20%20/**%0A%20%20%20%20%20*%20Remaining%20elements%20of%20list.%0A%20%20%20%20%20*/%0A%20%20%20%20public%20IntList%20rest%3B%0A%0A%20%20%20%20/**%0A%20%20%20%20%20*%20A%20List%20with%20first%20FIRST0%20and%20rest%20REST0.%0A%20%20%20%20%20*/%0A%20%20%20%20public%20IntList%28int%20first0,%20IntList%20rest0%29%20%7B%0A%20%20%20%20%20%20%20%20first%20%3D%20first0%3B%0A%20%20%20%20%20%20%20%20rest%20%3D%20rest0%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20/**%0A%20%20%20%20%20*%20A%20List%20with%20null%20rest,%20and%20first%20%3D%200.%0A%20%20%20%20%20*/%0A%20%20%20%20public%20IntList%28%29%20%7B%0A%20%20%20%20%20%20%20%20/*%20NOTE%3A%20public%20IntList%20%28%29%20%7B%20%7D%20%20would%20also%20work.%20*/%0A%20%20%20%20%20%20%20%20this%280,%20null%29%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20public%20static%20IntList%20of%28Integer...%20args%29%20%7B%0A%20%20%20%20%20%20%20%20IntList%20result,%20p%3B%0A%0A%20%20%20%20%20%20%20%20if%20%28args.length%20%3E%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20result%20%3D%20new%20IntList%28args%5B0%5D,%20null%29%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20null%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20int%20k%3B%0A%20%20%20%20%20%20%20%20for%20%28k%20%3D%201,%20p%20%3D%20result%3B%20k%20%3C%20args.length%3B%20k%20%2B%3D%201,%20p%20%3D%20p.rest%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20p.rest%20%3D%20new%20IntList%28args%5Bk%5D,%20null%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20return%20result%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20public%20static%20IntList%20squareListIterative%28IntList%20L%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28L%20%3D%3D%20null%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20null%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20IntList%20res%20%3D%20new%20IntList%28L.first%20*%20L.first,%20null%29%3B%0A%20%20%20%20%20%20%20%20IntList%20ptr%20%3D%20res%3B%0A%20%20%20%20%20%20%20%20L%20%3D%20L.rest%3B%0A%20%20%20%20%20%20%20%20while%20%28L%20!%3D%20null%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20ptr.rest%20%3D%20new%20IntList%28L.first%20*%20L.first,%20null%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20L%20%3D%20L.rest%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20ptr%20%3D%20ptr.rest%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20return%20res%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20public%20static%20void%20main%28String%5B%5D%20args%29%7B%0A%20%20%20%20%20%20IntList%20L%20%3D%20IntList.of%281,%202,%203,%204,%205%29%3B%0A%20%20%20%20%20%20squareListIterative%28L%29%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%7D&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false
         if (A == null) {
-            return null;
+            return B;
+        } else {
+            IntList res = new IntList(A.first, null);
+            IntList ptr = res;
+            A = A.rest; // In this step, A(the local variable in this method)'s reference is changed from A (outside pass in) to A.rest, that is why A outside this function stay intact.
+            while (A != null) {
+                ptr.rest = new IntList(A.first, null);
+                A = A.rest;
+                ptr = ptr.rest;
+            }
+            ptr.rest = B;
+            return res;
         }
-        IntList res = new IntList(A.first, null);
-        IntList ptr = res;
-        A = A.rest; // In this step, A(the local variable in this method)'s reference is changed from A (outside pass in) to A.rest, that is why A outside this function stay intact.
-        while (A != null) {
-            ptr.rest = new IntList(A.first, null);
-            A = A.rest;
-            ptr = ptr.rest;
-        }
-        ptr.rest = B;
-        return res;
     }
 
 
