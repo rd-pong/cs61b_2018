@@ -1,14 +1,14 @@
 /**
  * Create generic Double-Ended Queue (Deque) using linked list.
  */
-public class LinkedListDeque<ItemType> {
-    public class DequeNode {
+public class LinkedListDeque<T> {
+    private class DequeNode {
         private DequeNode prev;
-        private ItemType item;
+        private T item;
         private DequeNode next;
 
         // Constructor
-        public DequeNode(DequeNode p, ItemType i, DequeNode n) {
+        private DequeNode(DequeNode p, T i, DequeNode n) {
             prev = p;
             item = i;
             next = n;
@@ -40,11 +40,11 @@ public class LinkedListDeque<ItemType> {
     }
 
     /**
-     * Adds an item of type ItemType to the front of the deque.
+     * Adds an item of type T to the front of the deque.
      *
      * @param item that wished to be packed in a node and add as node
      */
-    public void addFirst(ItemType item) {
+    public void addFirst(T item) {
         DequeNode originalFirst = this.sentinel.next;
         DequeNode newNode = new DequeNode(sentinel, item, originalFirst);
         originalFirst.prev = newNode;
@@ -53,11 +53,11 @@ public class LinkedListDeque<ItemType> {
     }
 
     /**
-     * Adds an item of type ItemType to the back of the deque.
+     * Adds an item of type T to the back of the deque.
      *
      * @param item that wished to be packed in a node and add as node
      */
-    public void addLast(ItemType item) {
+    public void addLast(T item) {
         DequeNode originalLast = this.sentinel.prev;
         DequeNode newNode = new DequeNode(originalLast, item, this.sentinel);
         originalLast.next = newNode;
@@ -99,11 +99,12 @@ public class LinkedListDeque<ItemType> {
      *
      * @return originalFirst.item
      */
-    public ItemType removeFirst() {
+    public T removeFirst() {
         DequeNode originalFirst = this.sentinel.next;
         this.sentinel.next = originalFirst.next;
         originalFirst.next.prev = this.sentinel;
-        size -= 1;
+        if (!originalFirst.isEmptyNode())
+            this.size -= 1;
         return originalFirst.item;
     }
 
@@ -112,11 +113,12 @@ public class LinkedListDeque<ItemType> {
      *
      * @return originalLast.item
      */
-    public ItemType removeLast() {
+    public T removeLast() {
         DequeNode originalLast = this.sentinel.prev;
         this.sentinel.prev = originalLast.prev;
         originalLast.prev.next = this.sentinel;
-        size -= 1;
+        if (!originalLast.isEmptyNode())
+            size -= 1;
         return originalLast.item;
     }
 
@@ -125,7 +127,7 @@ public class LinkedListDeque<ItemType> {
      *
      * @Return get node.item, if exists; null, if no such item exists
      */
-    public ItemType get(int index) {
+    public T get(int index) {
         DequeNode pointer = this.sentinel;
         int current_index = -1;
         while (current_index < index) {
@@ -141,7 +143,7 @@ public class LinkedListDeque<ItemType> {
      *
      * @Return get node.item, if exists; null, if no such item exists
      */
-    public ItemType getRecursiveHelper(DequeNode helpNode, int index) {
+    public T getRecursiveHelper(DequeNode helpNode, int index) {
         if (index == 0)
             return helpNode.item;
         else {
@@ -150,7 +152,7 @@ public class LinkedListDeque<ItemType> {
         }
     }
 
-    public ItemType getRecursive(int index) {
+    public T getRecursive(int index) {
         return getRecursiveHelper(this.sentinel.next, index);
     }
 
@@ -158,6 +160,6 @@ public class LinkedListDeque<ItemType> {
      * Creates a deep copy of other.
      */
     public LinkedListDeque(LinkedListDeque other) {
-
+        
     }
 }
