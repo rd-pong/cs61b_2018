@@ -14,12 +14,15 @@ public class LinkedListDeque<T> {
             next = n;
         }
 
+        private DequeNode() {
+        }
+
         public boolean isEmptyNode() {
             if (this.item == null) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
+
         }
     }
 
@@ -33,9 +36,9 @@ public class LinkedListDeque<T> {
      * Creates an empty linked list deque.
      */
     public LinkedListDeque() {
-        this.sentinel = new DequeNode(null, null, null); // Is it possible to set item to null?
+        this.sentinel = new DequeNode(); // Is it possible to set item to null?
         this.sentinel.prev = this.sentinel;
-        this.sentinel.next = this.sentinel.prev;
+        this.sentinel.next = this.sentinel;
         this.size = 0;
     }
 
@@ -71,9 +74,9 @@ public class LinkedListDeque<T> {
     public boolean isEmpty() {
         if (this.sentinel.next == this.sentinel) {
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 
     /**
@@ -103,8 +106,9 @@ public class LinkedListDeque<T> {
         DequeNode originalFirst = this.sentinel.next;
         this.sentinel.next = originalFirst.next;
         originalFirst.next.prev = this.sentinel;
-        if (!originalFirst.isEmptyNode())
+        if (!originalFirst.isEmptyNode()) {
             this.size -= 1;
+        }
         return originalFirst.item;
     }
 
@@ -117,13 +121,15 @@ public class LinkedListDeque<T> {
         DequeNode originalLast = this.sentinel.prev;
         this.sentinel.prev = originalLast.prev;
         originalLast.prev.next = this.sentinel;
-        if (!originalLast.isEmptyNode())
+        if (!originalLast.isEmptyNode()) {
             size -= 1;
+        }
         return originalLast.item;
     }
 
     /**
-     * Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. Must not alter the deque!
+     * Gets the item at the given index, where 0 is the front,
+     * 1 is the next item, and so forth. Must not alter the deque!
      *
      * @Return get node.item, if exists; null, if no such item exists
      */
@@ -144,9 +150,9 @@ public class LinkedListDeque<T> {
      * @Return get node.item, if exists; null, if no such item exists
      */
     public T getRecursiveHelper(DequeNode helpNode, int index) {
-        if (index == 0)
+        if (index == 0) {
             return helpNode.item;
-        else {
+        } else {
             index--;
             return getRecursiveHelper(helpNode.next, index);
         }
@@ -159,7 +165,13 @@ public class LinkedListDeque<T> {
     /**
      * Creates a deep copy of other.
      */
-    public LinkedListDeque(LinkedListDeque other) {
-        
+    private LinkedListDeque(LinkedListDeque other) {
+        this.sentinel = new DequeNode();
+        this.sentinel.prev = this.sentinel;
+        this.sentinel.next = this.sentinel;
+        size = 0;
+        for (int i = 0; i < other.size(); i += 1) {
+            addLast((T) other.get(i));
+        }
     }
 }
