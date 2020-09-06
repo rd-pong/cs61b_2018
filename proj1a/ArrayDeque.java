@@ -11,6 +11,22 @@ public class ArrayDeque<T> {
         nextLast = 5;
     }
 
+//    /**
+//     * Resize the deque.
+//     */
+//    private void resize(int capacity) {
+//        T[] newDeque = (T[]) new Object[capacity];
+//        int oldIndex = nextFirst + 1; // the index of the first item in original deque
+//        for (int newIndex = 0; newIndex < size; newIndex++) {
+//            newDeque[newIndex] = items[oldIndex];
+//            oldIndex = oldIndex + 1;
+//        }
+//        items = newDeque;
+//        nextFirst = capacity - 1; // since the new deque is starting from true 0 index.
+//        nextLast = size;
+//    }
+
+    // method 'expand' and 'shrink' are combined to resize
     public void expand(int capacity) {
         T[] a = (T[]) new Object[capacity];
         System.arraycopy(this.items, 0, a, 0, nextLast);
@@ -20,20 +36,21 @@ public class ArrayDeque<T> {
 
     }
 
+    // method 'expand' and 'shrink' are combined to resize
     public void shrink(int capacity) {
         T[] a = (T[]) new Object[capacity];
         for (int i = 0; i < size; i++) {
             a[i] = this.get(i);
         }
         this.items = a;
-        this.nextFirst = items.length - 1;
+        this.nextFirst = capacity - 1;
         this.nextLast = size;
     }
 
     public void addFirst(T item) {
         if (nextLast == nextFirst) {
             // nextLast reaches nextFirst, expand array
-            expand(items.length * 2);
+            shrink(items.length * 2);
             // change array properties
             this.items[nextFirst] = item;
             this.nextFirst -= 1;
@@ -54,7 +71,7 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         if (nextLast == nextFirst) {
             // nextLast reaches nextFirst, expand array
-            expand(items.length * 2);
+            shrink(items.length * 2);
             // change array properties
             this.items[nextLast] = item;
             this.nextLast += 1;
@@ -139,14 +156,6 @@ public class ArrayDeque<T> {
             return null;
         }
 
-    }
-
-    public T getLast() {
-        return items[nextLast - 1];
-    }
-
-    public T getFirst() {
-        return items[nextFirst + 1];
     }
 
 
