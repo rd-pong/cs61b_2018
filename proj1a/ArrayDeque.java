@@ -5,13 +5,13 @@ public class ArrayDeque<T> {
     private int nextLast;
 
     public ArrayDeque() {
-        items = (T[]) new Object[6];
+        items = (T[]) new Object[8];
         size = 0;
         nextFirst = 4;
         nextLast = 5;
     }
 
-    public void resize(int capacity) {
+    public void expand(int capacity) {
         T[] a = (T[]) new Object[capacity];
         System.arraycopy(this.items, 0, a, 0, nextLast);
         System.arraycopy(this.items, nextFirst, a, capacity - (items.length - this.nextFirst), items.length - nextFirst);
@@ -20,22 +20,53 @@ public class ArrayDeque<T> {
 
     }
 
-    public void addLast(T x) {
-        if (nextLast == items.length - 1) {
+    public void shrink(int capacity) {
+        T[] a = (T[]) new Object[capacity];
+        for (int i = 0; i < size; i++) {
+            a[i] = this.get(i);
+        }
+        this.items = a;
+        this.nextFirst = items.length - 1;
+        this.nextLast = size;
+    }
+
+    public void addFirst(T item) {
+        if (nextLast == nextFirst) {
+            // nextLast reaches nextFirst, expand array
+            expand(items.length * 2);
+            // change array properties
+            this.items[nextFirst] = item;
+            this.nextFirst -= 1;
+            this.size += 1;
+        } else if (nextFirst == 0) {
             // fill the feed in item as last of the items[] list
-            items[nextLast] = x;
+            items[nextFirst] = item;
+            size += 1;
+            // then change nextLast to the start of items[] list
+            this.nextFirst = items.length - 1;
+        } else {
+            items[nextFirst] = item;
+            nextFirst -= 1;
+            size += 1;
+        }
+    }
+
+    public void addLast(T item) {
+        if (nextLast == nextFirst) {
+            // nextLast reaches nextFirst, expand array
+            expand(items.length * 2);
+            // change array properties
+            this.items[nextLast] = item;
+            this.nextLast += 1;
+            this.size += 1;
+        } else if (nextLast == items.length - 1) {
+            // fill the feed in item as last of the items[] list
+            items[nextLast] = item;
             size += 1;
             // then change nextLast to the start of items[] list
             this.nextLast = 0;
-        } else if (nextLast == nextFirst) {
-            // nextLast reaches nextFirst, expand array
-            resize(items.length * 2);
-            // change array properties
-            this.items[nextLast] = x;
-            this.nextLast += 1;
-            this.size += 1;
         } else {
-            items[nextLast] = x;
+            items[nextLast] = item;
             nextLast += 1;
             size += 1;
         }
@@ -58,6 +89,46 @@ public class ArrayDeque<T> {
         }
     }
 
+    public T removeFirst() {
+        size -= 1;
+        T x = (T) new Object();
+        if (nextFirst == items.length - 1) {
+            x = items[0];
+            items[0] = null;
+            this.nextFirst = 0;
+        } else {
+            x = items[nextFirst + 1];
+            items[nextFirst + 1] = null;
+            this.nextFirst += 1;
+        }
+        // usage factor check
+        double usageRatio = (double) this.size / this.items.length;
+        if (usageRatio < 0.25) {
+            shrink((int) (items.length / 2));
+        }
+        return x;
+    }
+
+    public T removeLast() {
+        size -= 1;
+        T x = (T) new Object();
+        if (nextLast == 0) {
+            x = items[items.length - 1];
+            items[items.length - 1] = null;
+            this.nextLast = items.length - 1;
+        } else {
+            x = items[nextLast - 1];
+            items[nextLast - 1] = null;
+            this.nextLast -= 1;
+        }
+        // usage factor check
+        double usageRatio = (double) this.size / this.items.length;
+        if (usageRatio < 0.25) {
+            shrink((int) (items.length / 2));
+        }
+        return x;
+    }
+
     public T get(int index) {
         int buffIndex = index + nextFirst + 1; // arraydeque index -->array index
         if (index < size && buffIndex < items.length) {
@@ -74,26 +145,9 @@ public class ArrayDeque<T> {
         return items[nextLast - 1];
     }
 
-    public T removeLast() {
-        T x = getLast();
-        size -= 1;
-        items[nextLast - 1] = null;
-        this.nextLast -= 1;
-
-        // usage factor check
-        double usageRatio = (double) this.size / this.items.length;
-        if (usageRatio < 0.25) {
-            resize((int) (items.length / 2));
-        }
-
-        return x;
+    public T getFirst() {
+        return items[nextFirst + 1];
     }
-
-
-//    public void addFirst(T item): Adds an item of type T to the front of the deque.
-//    public boolean isEmpty(): Returns true if deque is empty, false otherwise.
-//    public void printDeque(): Prints the items in the deque from first to last, separated by a space.
-//    public T removeFirst(): Removes and returns the item at the front of the deque. If no such item exists, returns null.
 
 
 }
