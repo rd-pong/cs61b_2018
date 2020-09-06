@@ -38,7 +38,7 @@ public class ArrayDeque<T> {
 
 
     // method 'expand' and 'shrink' are combined to resize
-    public void resize(int capacity) {
+    private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
         for (int i = 0; i < size; i++) {
             a[i] = this.get(i);
@@ -91,10 +91,11 @@ public class ArrayDeque<T> {
     }
 
     public boolean isEmpty() {
-        if (size <= 0)
+        if (size <= 0) {
             return true;
-        else
-            return false;
+        }
+        return false;
+
     }
 
     public int size() {
