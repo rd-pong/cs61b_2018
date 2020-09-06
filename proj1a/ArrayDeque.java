@@ -12,7 +12,7 @@ public class ArrayDeque<T> {
     }
 
 //    /**
-//     * Resize the deque.
+//     * Another way of resize @ https://github.com/zangsy/cs61b_sp19/blob/master/proj1a/ArrayDeque.java
 //     */
 //    private void resize(int capacity) {
 //        T[] newDeque = (T[]) new Object[capacity];
@@ -26,18 +26,19 @@ public class ArrayDeque<T> {
 //        nextLast = size;
 //    }
 
-    // method 'expand' and 'shrink' are combined to resize
-    public void expand(int capacity) {
-        T[] a = (T[]) new Object[capacity];
-        System.arraycopy(this.items, 0, a, 0, nextLast);
-        System.arraycopy(this.items, nextFirst, a, capacity - (items.length - this.nextFirst), items.length - nextFirst);
-        this.nextFirst = capacity - (items.length - nextFirst);
-        this.items = a;
+//    // method 'expand' and 'shrink' are combined to resize
+//    public void expand(int capacity) {
+//        T[] a = (T[]) new Object[capacity];
+//        System.arraycopy(this.items, 0, a, 0, nextLast);
+//        System.arraycopy(this.items, nextFirst, a, capacity - (items.length - this.nextFirst), items.length - nextFirst);
+//        this.nextFirst = capacity - (items.length - nextFirst);
+//        this.items = a;
+//
+//    }
 
-    }
 
     // method 'expand' and 'shrink' are combined to resize
-    public void shrink(int capacity) {
+    public void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
         for (int i = 0; i < size; i++) {
             a[i] = this.get(i);
@@ -50,7 +51,7 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         if (nextLast == nextFirst) {
             // nextLast reaches nextFirst, expand array
-            shrink(items.length * 2);
+            resize(items.length * 2);
             // change array properties
             this.items[nextFirst] = item;
             this.nextFirst -= 1;
@@ -71,7 +72,7 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         if (nextLast == nextFirst) {
             // nextLast reaches nextFirst, expand array
-            shrink(items.length * 2);
+            resize(items.length * 2);
             // change array properties
             this.items[nextLast] = item;
             this.nextLast += 1;
@@ -107,7 +108,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        size -= 1;
+        if (size != 0) {
+            size -= 1;
+        }
         T x = (T) new Object();
         if (nextFirst == items.length - 1) {
             x = items[0];
@@ -121,13 +124,15 @@ public class ArrayDeque<T> {
         // usage factor check
         double usageRatio = (double) this.size / this.items.length;
         if (usageRatio < 0.25) {
-            shrink((int) (items.length / 2));
+            resize((int) (items.length / 2));
         }
         return x;
     }
 
     public T removeLast() {
-        size -= 1;
+        if (size != 0) {
+            size -= 1;
+        }
         T x = (T) new Object();
         if (nextLast == 0) {
             x = items[items.length - 1];
@@ -141,7 +146,7 @@ public class ArrayDeque<T> {
         // usage factor check
         double usageRatio = (double) this.size / this.items.length;
         if (usageRatio < 0.25) {
-            shrink((int) (items.length / 2));
+            resize((int) (items.length / 2));
         }
         return x;
     }
