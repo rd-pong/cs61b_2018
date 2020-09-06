@@ -80,7 +80,7 @@ public class LinkedListDeque<T> {
     }
 
     /**
-     * @Returns the number of items in the deque.
+     * @Return the number of items in the deque.
      */
     public int size() {
         return this.size;
@@ -149,7 +149,7 @@ public class LinkedListDeque<T> {
      *
      * @Return get node.item, if exists; null, if no such item exists
      */
-    public T getRecursiveHelper(DequeNode helpNode, int index) {
+    private T getRecursiveHelper(DequeNode helpNode, int index) {
         if (index == 0) {
             return helpNode.item;
         } else {
