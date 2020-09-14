@@ -1,8 +1,7 @@
 import org.junit.Test;
 
-import java.util.Deque;
-
 import static org.junit.Assert.*;
+
 
 public class TestPalindrome {
     // You must use this palindrome, and not instantiate
@@ -13,8 +12,9 @@ public class TestPalindrome {
     public void testWordToDeque() {
         /* Original line be like: Deque d = palindrome.wordToDeque("persiflage");
          * but sometime encountered: "不兼容类型：java.lang.Deque无法转换为String"
-         * 这是因为String类是java中本就存在的类，所以自己起类名的时候不要起java中已有的类名
-         * 解决方案: Deque<Character> d = palindrome.wordToDeque("persiflage");*/
+         * 这是因为我不小心import java.util.ArrayDeque; import java.util.Deque;
+         * String类是java中本就存在的类，所以冲突了，自己起类名的时候不要起java中已有的类名
+         * 解决方案: 仔细检查import*/
         Deque d = palindrome.wordToDeque("persiflage");
 
         String actual = "";
@@ -50,4 +50,5 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome("zxzx", obo));
         assertEquals(true, palindrome.isPalindrome("flake", obo));
     }
+
 }
