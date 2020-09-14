@@ -11,7 +11,12 @@ public class TestPalindrome {
 
     @Test
     public void testWordToDeque() {
-        Deque<Character> d = palindrome.wordToDeque("persiflage");
+        /* Original line be like: Deque d = palindrome.wordToDeque("persiflage");
+         * but sometime encountered: "不兼容类型：java.lang.Deque无法转换为String"
+         * 这是因为String类是java中本就存在的类，所以自己起类名的时候不要起java中已有的类名
+         * 解决方案: Deque<Character> d = palindrome.wordToDeque("persiflage");*/
+        Deque d = palindrome.wordToDeque("persiflage");
+
         String actual = "";
         for (int i = 0; i < "persiflage".length(); i++) {
             actual += d.removeFirst();
@@ -28,5 +33,21 @@ public class TestPalindrome {
         assertEquals(false, palindrome.isPalindrome("rancor"));
         assertFalse(palindrome.isPalindrome("cat"));
         assertEquals(false, palindrome.isPalindrome("Aa"));
+    }
+
+    @Test
+    public void testNewIsPalindrome() {
+        OffByOne obo = new OffByOne();
+        assertTrue(palindrome.isPalindrome("", obo));
+        assertTrue(palindrome.isPalindrome("a", obo));
+        assertTrue(palindrome.isPalindrome("flake", obo));
+        assertTrue(palindrome.isPalindrome("zyzy", obo));
+        assertTrue(palindrome.isPalindrome("yyxz", obo));
+        assertTrue(palindrome.isPalindrome("yyyxz", obo));
+        assertFalse(palindrome.isPalindrome("aa", obo));
+        assertFalse(palindrome.isPalindrome("xyz", obo));
+        assertFalse(palindrome.isPalindrome("aa", obo));
+        assertFalse(palindrome.isPalindrome("zxzx", obo));
+        assertEquals(true, palindrome.isPalindrome("flake", obo));
     }
 }
