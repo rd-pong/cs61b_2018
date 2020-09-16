@@ -26,9 +26,7 @@ public class TestArrayDequeGold {
         for (int i = 0; i < 10; i++) {
             int actual = ads.get(i);
             int expected = sad.get(i);
-            assertEquals("Oh noooo!\nThis is bad in addLast():\n   Random number " + actual
-                            + " not equal to " + expected + "!",
-                    expected, actual);
+            assertEquals("addFirst(\n)", i, expected, actual);
         }
 
         // addFirst
@@ -40,9 +38,7 @@ public class TestArrayDequeGold {
         for (int i = 0; i < 10; i++) {
             int actual = ads.get(i);
             int expected = sad.get(i);
-            assertEquals("Oh noooo!\nThis is bad in addFirst():\n   Random number " + actual
-                            + " not equal to " + expected + "!",
-                    expected, actual);
+            assertEquals("addFirst(\n)", i, expected, actual);
         }
 
         // removeFirst
@@ -55,16 +51,12 @@ public class TestArrayDequeGold {
         for (int i = 0; i < 10; i++) {
             int actual = ads.get(i);
             int expected = sad.get(i);
-            assertEquals("Oh noooo!\nThis is bad in removeFirst():\n   Random number " + actual
-                            + " not equal to " + expected + "!",
-                    expected, actual);
+            assertEquals("removeFirst()", expected, actual);
         }
         for (int i = 0; i < 10; i++) {
             int actual = actualList.get(i);
             int expected = expectedList.get(i);
-            assertEquals("Oh noooo!\nThis is bad in removeFirst():\n   Random number " + actual
-                            + " not equal to " + expected + "!",
-                    expected, actual);
+            assertEquals("removeFirst()", expected, actual);
         }
 
 
@@ -77,44 +69,40 @@ public class TestArrayDequeGold {
         }
         int actual = ads.size();
         int expected = sad.size();
-        assertEquals("Oh noooo!\nThis is bad in removeLast():\n   actual size " + actual
-                        + " not equal to " + expected + "!",
-                expected, actual);
+        assertEquals("removeLast()", expected, actual);
         for (int i = 0; i < 10; i++) {
-            assertEquals("Oh noooo!\nThis is bad in removeLast():\n   Random number " + actualList.get(i)
-                            + " not equal to " + expectedList.get(i) + "!",
-                    expectedList.get(i), actualList.get(i));
+            assertEquals("removeLast()", expectedList.get(i), actualList.get(i));
         }
 
     }
 
 
-    @Test
-    public void testArratDeque2() {
-        ArrayDequeSolution<Integer> ads = new ArrayDequeSolution<>();
-        StudentArrayDeque<Integer> sad = new StudentArrayDeque<>();
-        int random = StdRandom.uniform(100);
-        ads.addFirst(random);
-        sad.addFirst(random);
-        assertEquals("addFirst(" + random + ")", ads.get(0), sad.get(0));
-        System.out.println("addFirst(" + random + ")");
-
-        random = StdRandom.uniform(100);
-        ads.addLast(random);
-        sad.addLast(random);
-        assertEquals("addLast(" + random + ")", ads.get(1), sad.get(1));
-        System.out.println("addLast(" + random + ")");
-
-        int actual = ads.removeFirst();
-        int expected = ads.removeFirst();
-        assertEquals("removeFirst()", actual, expected);
-        System.out.println("removeFirst()");
-
-        actual = ads.removeLast();
-        expected = sad.removeLast();
-        assertEquals("removeLast()", actual, expected);
-        System.out.println("removeLast()");
-    }
+//    @Test
+//    public void testArratDeque2() {
+//        ArrayDequeSolution<Integer> ads = new ArrayDequeSolution<>();
+//        StudentArrayDeque<Integer> sad = new StudentArrayDeque<>();
+//        int random = StdRandom.uniform(100);
+//        ads.addFirst(random);
+//        sad.addFirst(random);
+//        assertEquals("addFirst(" + random + ")", ads.get(0), sad.get(0));
+//        System.out.println("addFirst(" + random + ")");
+//
+//        random = StdRandom.uniform(100);
+//        ads.addLast(random);
+//        sad.addLast(random);
+//        assertEquals("addLast(" + random + ")", ads.get(1), sad.get(1));
+//        System.out.println("addLast(" + random + ")");
+//
+//        int actual = ads.removeFirst();
+//        int expected = ads.removeFirst();
+//        assertEquals("removeFirst()", actual, expected);
+//        System.out.println("removeFirst()");
+//
+//        actual = ads.removeLast();
+//        expected = sad.removeLast();
+//        assertEquals("removeLast()", actual, expected);
+//        System.out.println("removeLast()");
+//    }
 
 
 }
