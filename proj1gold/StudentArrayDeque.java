@@ -287,4 +287,9 @@ public class StudentArrayDeque<T> {
             return z;
         }
     }
+
+    public static void main(String[] args) {
+        StudentArrayDeque<Integer> student = new StudentArrayDeque<>();
+        // student.printDeque();
+    }
 }
