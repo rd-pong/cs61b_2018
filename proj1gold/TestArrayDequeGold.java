@@ -26,7 +26,7 @@ public class TestArrayDequeGold {
         for (int i = 0; i < 10; i++) {
             int actual = ads.get(i);
             int expected = sad.get(i);
-            assertEquals("addFirst(\n)", i, expected, actual);
+            assertEquals("addFirst(\n)", actual, expected, actual);
         }
 
         // addFirst
@@ -38,7 +38,7 @@ public class TestArrayDequeGold {
         for (int i = 0; i < 10; i++) {
             int actual = ads.get(i);
             int expected = sad.get(i);
-            assertEquals("addFirst(\n)", i, expected, actual);
+            assertEquals("addFirst(\n)", actual, expected, actual);
         }
 
         // removeFirst
