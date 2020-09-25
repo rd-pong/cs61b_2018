@@ -48,11 +48,13 @@ public class TestArrayDequeGold {
             actualList.add(ads.removeFirst());
             expectedList.add(sad.removeFirst());
         }
+        // check correctness of the rest of the list
         for (int i = 0; i < 10; i++) {
             int actual = ads.get(i);
             int expected = sad.get(i);
             assertEquals("removeFirst()", expected, actual);
         }
+        // check correctness of removed list
         for (int i = 0; i < 10; i++) {
             int actual = actualList.get(i);
             int expected = expectedList.get(i);
