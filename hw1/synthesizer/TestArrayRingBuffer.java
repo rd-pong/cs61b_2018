@@ -39,16 +39,16 @@ public class TestArrayRingBuffer {
     @Test
     public void iteratorTest() {
         ArrayRingBuffer<Integer> intList = new ArrayRingBuffer<>(10);
-//        intList.enqueue(0);
-//        intList.enqueue(1);
-//        intList.enqueue(2);
-//        intList.enqueue(3);
-//        intList.enqueue(4);
-//        intList.enqueue(5);
-//        intList.enqueue(6);
-//        intList.enqueue(7);
-//        intList.enqueue(8);
-//        intList.enqueue(9);
+        intList.enqueue(0);
+        intList.enqueue(1);
+        intList.enqueue(2);
+        intList.enqueue(3);
+        intList.enqueue(4);
+        intList.enqueue(5);
+        intList.enqueue(6);
+        intList.enqueue(7);
+        intList.enqueue(8);
+        intList.enqueue(9);
         Iterator<Integer> seer = intList.iterator();
         while (seer.hasNext()) {
             System.out.println(seer.next());

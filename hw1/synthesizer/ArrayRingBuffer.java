@@ -34,7 +34,6 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Itera
      */
     public void enqueue(T x) {
         if (isFull()) {
-            // TODO: exception 1
             throw new RuntimeException("Ring buffer overflow");
         } else {
             this.fillCount++;
@@ -60,7 +59,6 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Itera
      */
     public T dequeue() {
         if (this.isEmpty()) {
-            // TODO: exception 2
             throw new RuntimeException("Ring buffer underflow");
         } else {
             this.fillCount--;
@@ -82,6 +80,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Itera
      * Return oldest item, but don't remove it.
      */
     public T peek() {
+        if (this.isEmpty()) {
+            throw new RuntimeException("Ring buffer underflow");
+        }
         return this.rb[this.first];
     }
 
@@ -89,8 +90,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Itera
 
     }
 
-    // TODO: When you get to part 5, implement the needed code to support iteration.
-
+    // When you get to part 5, implement the needed code to support iteration.
     @Override
     public Iterator<T> iterator() {
         return new BufferIterator();
