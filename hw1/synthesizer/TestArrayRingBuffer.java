@@ -31,6 +31,9 @@ public class TestArrayRingBuffer {
         testRing.dequeue();
         testRing.dequeue();
         testRing.dequeue();
+        testRing.dequeue();
+        testRing.dequeue();
+        testRing.dequeue();
         testRing.enqueue(1);
         testRing.enqueue(2);
         System.out.println(testRing.peek());
