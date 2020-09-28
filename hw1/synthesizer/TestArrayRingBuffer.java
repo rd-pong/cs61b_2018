@@ -2,6 +2,8 @@ package synthesizer;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 
 /**
@@ -12,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class TestArrayRingBuffer {
     @Test
-    public void someTest() {
+    public void queueTest() {
         ArrayRingBuffer<Integer> testRing = new ArrayRingBuffer<>(7);
         testRing.enqueue(1);
         testRing.enqueue(2);
@@ -29,14 +31,28 @@ public class TestArrayRingBuffer {
         testRing.dequeue();
         testRing.dequeue();
         testRing.dequeue();
-        testRing.dequeue();
-        testRing.dequeue();
-        testRing.dequeue();
-        testRing.dequeue();
-        testRing.dequeue();
         testRing.enqueue(1);
         testRing.enqueue(2);
         System.out.println(testRing.peek());
+    }
+
+    @Test
+    public void iteratorTest() {
+        ArrayRingBuffer<Integer> intList = new ArrayRingBuffer<>(10);
+//        intList.enqueue(0);
+//        intList.enqueue(1);
+//        intList.enqueue(2);
+//        intList.enqueue(3);
+//        intList.enqueue(4);
+//        intList.enqueue(5);
+//        intList.enqueue(6);
+//        intList.enqueue(7);
+//        intList.enqueue(8);
+//        intList.enqueue(9);
+        Iterator<Integer> seer = intList.iterator();
+        while (seer.hasNext()) {
+            System.out.println(seer.next());
+        }
     }
 
     /**
