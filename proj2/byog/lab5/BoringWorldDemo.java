@@ -19,16 +19,6 @@ public class BoringWorldDemo {
     private static final long SEED = 2873123;
     private static final Random RANDOM = new Random(SEED);
 
-    private class Position {
-        private int x;
-        private int y;
-
-        public Position(int X, int Y) {
-            this.x = X;
-            this.y = Y;
-        }
-    }
-
     /**
      * Computes the width of row i for a size s hexagon.
      *
@@ -163,6 +153,34 @@ public class BoringWorldDemo {
             }
         }
 
+        // draws the world to the screen
+        ter.renderFrame(world);
+    }
+
+    public static void main(String[] args) {
+        // initialize the tile rendering engine with a window of size WIDTH x HEIGHT
+        TERenderer ter = new TERenderer();
+        ter.initialize(WIDTH, HEIGHT);
+
+        // initialize tiles
+        TETile[][] world = new TETile[WIDTH][HEIGHT];
+        for (int x = 0; x < WIDTH; x += 1) {
+            for (int y = 0; y < HEIGHT; y += 1) {
+                world[x][y] = Tileset.NOTHING;
+            }
+        }
+
+        // fills in a block 14 tiles wide by 4 tiles tall
+        for (int x = 20; x < 35; x += 1) {
+            for (int y = 5; y < 10; y += 1) {
+                world[x][y] = Tileset.WALL;
+            }
+        }
+
+        // addHexagon
+        Position pos = new Position(2, 4);
+        BoringWorldDemo hex = new BoringWorldDemo();
+        hex.addHexagon(world, pos, 3, Tileset.FLOOR);
         // draws the world to the screen
         ter.renderFrame(world);
     }
