@@ -11,6 +11,9 @@ public class Percolation {
 
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
+        if (N <= 0)
+            throw new IllegalArgumentException();
+
         this.N = N;
         this.grid = new boolean[N][N];
         this.gridTo1D = new WeightedQuickUnionUF(N * N + 2); // gridTo1D + virtual top & bottom
@@ -26,6 +29,9 @@ public class Percolation {
     // open the site (row, col) if it is not open already
     // TODO exception
     public void open(int row, int col) {
+        if (row > this.N - 1 || row < 0 || col > this.N - 1 || col < 0)
+            throw new java.lang.IndexOutOfBoundsException();
+
         // open site if not opened previously
         if (!isOpen(row, col)) {
             this.grid[row][col] = true;
@@ -81,12 +87,19 @@ public class Percolation {
 
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) {
+        if (row > this.N - 1 || row < 0 || col > this.N - 1 || col < 0)
+            throw new java.lang.IndexOutOfBoundsException();
+
         return grid[row][col];
     }
 
     // todo CONSTANT TIME is the site (row, col) full? Is there any water?
     public boolean isFull(int row, int col) {
-        return isFull_slow(row, col);
+        if (row > this.N - 1 || row < 0 || col > this.N - 1 || col < 0)
+            throw new java.lang.IndexOutOfBoundsException();
+
+        // return isFull_slow(row, col);
+        return isOpen(row, col) && gridTo1D.connected(VIRTUAL_TOP_SITE_INDEX, xyTo1D(row, col));
     }
 
     // is the site (row, col) full? Is there any water?
@@ -119,8 +132,8 @@ public class Percolation {
 
     // todo CONSTANT TIME does the system percolate?
     public boolean percolates() {
-        return percolates_slow();
-
+        // return percolates_slow();
+        return gridTo1D.connected(VIRTUAL_TOP_SITE_INDEX, VIRTUAL_BOTTOM_SITE_INDEX);
     }
 
     // is the site (row, col) full? Is there any water?
