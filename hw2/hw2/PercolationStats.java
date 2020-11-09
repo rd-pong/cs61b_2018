@@ -4,9 +4,9 @@ import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
-    double[] thresholds;
-    int N;
-    int T;
+    private double[] thresholds;
+    private int N;
+    private int T;
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {

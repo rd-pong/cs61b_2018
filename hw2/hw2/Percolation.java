@@ -1,17 +1,15 @@
 package hw2;
 
-import edu.princeton.cs.algs4.UF;
-
 public class Percolation {
-    public int N;
-    public boolean[][] grid; // true for opened, false for blocked
-    public UF gridTo1D;
+    private int N;
+    private boolean[][] grid; // true for opened, false for blocked
+    private edu.princeton.cs.algs4.UF gridTo1D;
 
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
         this.N = N;
         this.grid = new boolean[N][N];
-        this.gridTo1D = new UF(N * N + 2); // gridTo1D + virtual top & bottom
+        this.gridTo1D = new edu.princeton.cs.algs4.UF(N * N + 2); // gridTo1D + virtual top & bottom
 
 //        // connect all sites in top row to virtual top gridTo1D[N]
 //        for (int i = 0; i < N; i++) {
@@ -79,7 +77,7 @@ public class Percolation {
         return grid[row][col];
     }
 
-    // is the site (row, col) full? Is there any water?
+    // todo CONSTANT TIME is the site (row, col) full? Is there any water?
     public boolean isFull(int row, int col) {
         return isFull_slow(row, col);
     }
