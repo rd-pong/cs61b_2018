@@ -1,25 +1,21 @@
 package hw2;
 
+import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+
 public class Percolation {
     private int N;
     private boolean[][] grid; // true for opened, false for blocked
-    private edu.princeton.cs.algs4.UF gridTo1D;
+    private WeightedQuickUnionUF gridTo1D;
+    private int VIRTUAL_TOP_SITE_INDEX;
+    private int VIRTUAL_BOTTOM_SITE_INDEX;
 
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
         this.N = N;
         this.grid = new boolean[N][N];
-        this.gridTo1D = new edu.princeton.cs.algs4.UF(N * N + 2); // gridTo1D + virtual top & bottom
-
-//        // connect all sites in top row to virtual top gridTo1D[N]
-//        for (int i = 0; i < N; i++) {
-//            gridTo1D.union(xyTo1D(0, i), N);
-//        }
-//
-//        // connect all sites in bottom row to virtual bottom gridTo1D[N+1]
-//        for (int i = 0; i < N; i++) {
-//            gridTo1D.union(xyTo1D(N - 1, i), N + 1);
-//        }
+        this.gridTo1D = new WeightedQuickUnionUF(N * N + 2); // gridTo1D + virtual top & bottom
+        this.VIRTUAL_TOP_SITE_INDEX = N * N;
+        this.VIRTUAL_BOTTOM_SITE_INDEX = N * N + 1;
     }
 
     // convert xy coordinate to a int in int[]
@@ -28,7 +24,9 @@ public class Percolation {
     }
 
     // open the site (row, col) if it is not open already
+    // TODO exception
     public void open(int row, int col) {
+        // open site if not opened previously
         if (!isOpen(row, col)) {
             this.grid[row][col] = true;
         }
@@ -38,6 +36,15 @@ public class Percolation {
         connectUp(row, col);
         connectLeft(row, col);
         connectRight(row, col);
+
+        // if current site is at top, connect to virtual top site
+        if (row == 0)
+            this.gridTo1D.union(xyTo1D(row, col), VIRTUAL_TOP_SITE_INDEX);
+
+        // if current site is at bottom, connect to virtual bottom site
+        if (row == N - 1)
+            this.gridTo1D.union(xyTo1D(row, col), VIRTUAL_BOTTOM_SITE_INDEX);
+
     }
 
     // connect with left *opened* site, do nothing if current is the leftest
@@ -110,9 +117,10 @@ public class Percolation {
         return sum;
     }
 
-    // does the system percolate?
+    // todo CONSTANT TIME does the system percolate?
     public boolean percolates() {
         return percolates_slow();
+
     }
 
     // is the site (row, col) full? Is there any water?
