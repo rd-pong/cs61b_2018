@@ -31,7 +31,6 @@ public class Percolation {
     }
 
     // open the site (row, col) if it is not open already
-    // TODO exception
     public void open(int row, int col) {
         if (row > this.N - 1 || row < 0 || col > this.N - 1 || col < 0)
             throw new java.lang.IndexOutOfBoundsException();
@@ -108,7 +107,7 @@ public class Percolation {
         return grid[row][col];
     }
 
-    // todo CONSTANT TIME is the site (row, col) full? Is there any water?
+    // CONSTANT TIME is the site (row, col) full? Is there any water?
     public boolean isFull(int row, int col) {
         if (row > this.N - 1 || row < 0 || col > this.N - 1 || col < 0)
             throw new java.lang.IndexOutOfBoundsException();
@@ -131,7 +130,7 @@ public class Percolation {
         return full;
     }
 
-    // todo CONSTANT TIME number of open sites
+    // CONSTANT TIME number of open sites
     public int numberOfOpenSites() {
         // return numberOfOpenSites_slow();
         return this.numberOfOpenSites;
@@ -148,7 +147,7 @@ public class Percolation {
         return sum;
     }
 
-    // todo CONSTANT TIME does the system percolate?
+    // CONSTANT TIME does the system percolate?
     public boolean percolates() {
         // return percolates_slow();
         return gridTo1D.connected(VIRTUAL_TOP_SITE_INDEX, VIRTUAL_BOTTOM_SITE_INDEX);
