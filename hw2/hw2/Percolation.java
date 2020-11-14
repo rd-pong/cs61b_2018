@@ -6,6 +6,8 @@ public class Percolation {
     private int N;
     private boolean[][] grid; // true for opened, false for blocked
     private WeightedQuickUnionUF gridTo1D;
+    private WeightedQuickUnionUF unionFindNoBottom; // Prevents backwash
+    private int numberOfOpenSites;
     private int VIRTUAL_TOP_SITE_INDEX;
     private int VIRTUAL_BOTTOM_SITE_INDEX;
 
@@ -17,8 +19,10 @@ public class Percolation {
         this.N = N;
         this.grid = new boolean[N][N];
         this.gridTo1D = new WeightedQuickUnionUF(N * N + 2); // gridTo1D + virtual top & bottom
+        this.unionFindNoBottom = new WeightedQuickUnionUF(N * N + 1);
         this.VIRTUAL_TOP_SITE_INDEX = N * N;
         this.VIRTUAL_BOTTOM_SITE_INDEX = N * N + 1;
+        this.numberOfOpenSites = 0;
     }
 
     // convert xy coordinate to a int in int[]
@@ -35,6 +39,7 @@ public class Percolation {
         // open site if not opened previously
         if (!isOpen(row, col)) {
             this.grid[row][col] = true;
+            numberOfOpenSites++;
         }
 
         // connect with surrounding sites
@@ -44,8 +49,10 @@ public class Percolation {
         connectRight(row, col);
 
         // if current site is at top, connect to virtual top site
-        if (row == 0)
+        if (row == 0) {
             this.gridTo1D.union(xyTo1D(row, col), VIRTUAL_TOP_SITE_INDEX);
+            unionFindNoBottom.union(VIRTUAL_TOP_SITE_INDEX, xyTo1D(row, col));
+        }
 
         // if current site is at bottom, connect to virtual bottom site
         if (row == N - 1)
@@ -57,32 +64,40 @@ public class Percolation {
     private void connectLeft(int row, int col) {
         if (col == 0) // if there is no left site
             return;
-        if (isOpen(row, col - 1)) // if left is opened
+        if (isOpen(row, col - 1)) { // if left is opened
             this.gridTo1D.union(xyTo1D(row, col), xyTo1D(row, col - 1));
+            this.unionFindNoBottom.union(xyTo1D(row, col), xyTo1D(row, col - 1));
+        }
     }
 
     // connect with right *opened* site, do nothing if current is the rightest
     private void connectRight(int row, int col) {
         if (col == N - 1) // there is no right
             return;
-        if (isOpen(row, col + 1))
+        if (isOpen(row, col + 1)) {
             this.gridTo1D.union(xyTo1D(row, col), xyTo1D(row, col + 1));
+            this.unionFindNoBottom.union(xyTo1D(row, col), xyTo1D(row, col + 1));
+        }
     }
 
     // connect with upper *opened* site, do nothing if current is the upest
     private void connectUp(int row, int col) {
         if (row == 0)
             return;
-        if (isOpen(row - 1, col))
+        if (isOpen(row - 1, col)) {
             this.gridTo1D.union(xyTo1D(row, col), xyTo1D(row - 1, col));
+            this.unionFindNoBottom.union(xyTo1D(row, col), xyTo1D(row - 1, col));
+        }
     }
 
     // connect with down *opened* site, do nothing if current is the downest
     private void connectDown(int row, int col) {
         if (row == N - 1)
             return;
-        if (isOpen(row + 1, col))
+        if (isOpen(row + 1, col)) {
             this.gridTo1D.union(xyTo1D(row, col), xyTo1D(row + 1, col));
+            this.unionFindNoBottom.union(xyTo1D(row, col), xyTo1D(row + 1, col));
+        }
     }
 
     // is the site (row, col) open?
@@ -99,7 +114,9 @@ public class Percolation {
             throw new java.lang.IndexOutOfBoundsException();
 
         // return isFull_slow(row, col);
-        return isOpen(row, col) && gridTo1D.connected(VIRTUAL_TOP_SITE_INDEX, xyTo1D(row, col));
+        return isOpen(row, col) && gridTo1D.connected(VIRTUAL_TOP_SITE_INDEX, xyTo1D(row, col)) &&
+                unionFindNoBottom.connected(VIRTUAL_TOP_SITE_INDEX, xyTo1D(row, col));
+
     }
 
     // is the site (row, col) full? Is there any water?
@@ -116,7 +133,8 @@ public class Percolation {
 
     // todo CONSTANT TIME number of open sites
     public int numberOfOpenSites() {
-        return numberOfOpenSites_slow();
+        // return numberOfOpenSites_slow();
+        return this.numberOfOpenSites;
     }
 
     private int numberOfOpenSites_slow() {
