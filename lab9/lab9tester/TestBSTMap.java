@@ -1,9 +1,9 @@
 package lab9tester;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
 import lab9.BSTMap;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests by Brendan Hu, Spring 2015, revised for 2018 by Josh Hug
@@ -45,6 +45,7 @@ public class TestBSTMap {
     @Test
     public void sanityContainsKeyTest() {
         BSTMap<String, Integer> b = new BSTMap<String, Integer>();
+        System.out.println(b.containsKey("waterYouDoingHere"));
         assertFalse(b.containsKey("waterYouDoingHere"));
         b.put("waterYouDoingHere", 0);
         assertTrue(b.containsKey("waterYouDoingHere"));
@@ -75,6 +76,9 @@ public class TestBSTMap {
             b.put("hi" + i, 1);
         }
         assertEquals(456, b.size());
+
+        b.put("hi", 1);
+        assertEquals(456, b.size());
     }
 
     //assumes get/containskey work
@@ -88,5 +92,10 @@ public class TestBSTMap {
 
     public static void main(String[] args) {
         jh61b.junit.TestRunner.runTests(TestBSTMap.class);
+        BSTMap<String, Integer> bstmap = new BSTMap<>();
+        bstmap.put("hello", 5);
+        bstmap.put("cat", 10);
+        bstmap.put("fish", 22);
+        bstmap.put("zebra", 90);
     }
 }
