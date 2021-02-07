@@ -43,12 +43,11 @@ public class TestComplexOomage {
         List<Oomage> deadlyList = new ArrayList<>();
 
         // Your code here.
-        int N = 10000;
+        int N = 100;
         List<Integer> deadlyParas = new ArrayList<>();
         deadlyParas.add(255);
-        deadlyParas.add(255);
-        deadlyParas.add(255);
-        deadlyParas.add(255);
+        deadlyParas.add(254);
+        deadlyParas.add(253);
         for (int i = 0; i < N; i += 1) {
             // deadlyList.add(ComplexOomage.deadlyRandomComplexOomage());
             deadlyList.add(new ComplexOomage(deadlyParas));
