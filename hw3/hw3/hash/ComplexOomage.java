@@ -80,14 +80,14 @@ public class ComplexOomage implements Oomage {
         return new ComplexOomage(params);
     }
 
-    public static ComplexOomage deadlyRandomComplexOomage() {
-        int N = StdRandom.uniform(1, 20);
-        ArrayList<Integer> params = new ArrayList<>(N);
-        for (int i = 0; i < N; i += 1) {
-            params.add(255);
-        }
-        return new ComplexOomage(params);
-    }
+//    public static ComplexOomage deadlyRandomComplexOomage() {
+//        int N = StdRandom.uniform(1, 20);
+//        ArrayList<Integer> params = new ArrayList<>(N);
+//        for (int i = 0; i < N; i += 1) {
+//            params.add(254);
+//        }
+//        return new ComplexOomage(params);
+//    }
 
     public static void main(String[] args) {
         System.out.println("Drawing 4 random complex Oomages.");
