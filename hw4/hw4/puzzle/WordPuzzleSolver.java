@@ -1,14 +1,22 @@
 package hw4.puzzle;
+
 import edu.princeton.cs.algs4.StdOut;
+import hw4.Solver;
 
 public class WordPuzzleSolver {
     /***********************************************************************
      * Test routine for your Solver class. Uncomment and run to test
      * your basic functionality.
      **********************************************************************/
-    /*public static void main(String[] args) {
-        String start = "cube";
-        String goal = "tubes";
+    public static void main(String[] args) {
+        String start = "stories";//3
+        String goal = "shore";
+
+//        String start = "face"; //3
+//        String goal = "rates";
+
+//        String start = "mines"; //4
+//        String goal = "loved";
 
         Word startState = new Word(start, goal);
         Solver solver = new Solver(startState);
@@ -17,5 +25,5 @@ public class WordPuzzleSolver {
         for (WorldState ws : solver.solution()) {
             StdOut.println(ws);
         }
-    }*/
+    }
 }
