@@ -1,7 +1,5 @@
 package hw4.puzzle;
 
-import hw4.Solver;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

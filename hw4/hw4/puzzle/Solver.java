@@ -1,4 +1,4 @@
-package hw4;
+package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
 import hw4.puzzle.WorldState;

@@ -1,6 +1,5 @@
 package hw4.puzzle;
 import edu.princeton.cs.algs4.In;
-import hw4.Solver;
 import org.junit.Test;
 
 import java.util.Arrays;
