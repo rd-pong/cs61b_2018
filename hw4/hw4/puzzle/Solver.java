@@ -1,7 +1,6 @@
 package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
-import hw4.puzzle.WorldState;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -28,11 +27,16 @@ public class Solver {
             // ?? what if there are several min values? (the algorithm prevent it)
             searchNodesQ.delMin();
             for (WorldState nei : X.neighbors()) {
-                SearchNode neiNode = new SearchNode(nei, X);
-                searchNodesQ.insert(neiNode);
+                // critical optimization
+                if (X.getPrevNode() == null || !nei.equals(X.getPrevNode().getWs())) {
+                    SearchNode neiNode = new SearchNode(nei, X);
+                    searchNodesQ.insert(neiNode);
+                    // System.out.print(neiNode.ws + " "); // print enqueued
+                }
+
+
             }
         }
-        // todo A critical optimization:
 
         solutionSearchNode = searchNodesQ.min();
         moveCount = solutionSearchNode.getMovesFromInitial();
@@ -54,6 +58,7 @@ public class Solver {
             this.prevNode = prevNode;
         }
 
+        // only when initialize SearchNode without previous node
         public SearchNode(WorldState newWS, int movesFromInitial, SearchNode newPrev) {
             this.ws = newWS;
             this.movesFromInitial = movesFromInitial;
@@ -86,21 +91,22 @@ public class Solver {
             return this.ws.estimatedDistanceToGoal();
         }
 
-
-
-
         public Iterable<WorldState> getWSFromInitial(int moveCount) {
             SearchNode solutionNode = this;
-            LinkedList<WorldState> ws = new LinkedList<>();
+            LinkedList<WorldState> wsListFromInitial = new LinkedList<>();
+
+            // put solution in the list
+            wsListFromInitial.add(solutionNode.ws);
 
             for (int i = 0; i < moveCount; i++) {
-                ws.add(solutionNode.getPrevNode().getWs());
+                wsListFromInitial.add(solutionNode.getPrevNode().getWs());
                 solutionNode = solutionNode.getPrevNode();
             }
 
             // todo reverse list
 
-            return ws;
+
+            return wsListFromInitial;
         }
     }
 

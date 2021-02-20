@@ -8,8 +8,11 @@ public class WordPuzzleSolver {
      * your basic functionality.
      **********************************************************************/
     public static void main(String[] args) {
-        String start = "stories";//3
-        String goal = "shore";
+//        String start = "stories";//3
+//        String goal = "shore";
+
+        String start = "horse"; // CORRECT horse -> hose -> hole -> cole -> core -> cure -> pure -> purse -> nurse
+        String goal = "nurse"; // INCORRECT horse -> hose -> home -> come -> core -> cure -> pure -> purse -> nurse
 
 //        String start = "face"; //3
 //        String goal = "rates";
