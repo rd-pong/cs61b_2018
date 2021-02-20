@@ -113,7 +113,7 @@ public class Solver {
      * (the number of moves made to reach this world state from the initial state
      * + the WorldState’s estimatedDistanceToGoal).
      */
-    class SearchNodePriority implements Comparator<SearchNode> {
+    private class SearchNodePriority implements Comparator<SearchNode> {
         @Override
         public int compare(SearchNode o1, SearchNode o2) {
             return o1.movesFromInitial + o1.getWSDistToGoal() -

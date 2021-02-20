@@ -99,11 +99,12 @@ public class Board implements WorldState {
         return neighbors;
     }
 
+    // todo if goal is blank, then do not count
     public int hamming() {
         int diff = 0;
         for (int i = 0; i < this.size(); i++) {
             for (int j = 0; j < this.size(); j++) {
-                if (tileAt(i, j) != goal[i][j]) {
+                if (tileAt(i, j) != BLANK && tileAt(i, j) != goal[i][j]) {
                     diff++;
                 }
             }
@@ -115,7 +116,7 @@ public class Board implements WorldState {
         int diff = 0;
         for (int i = 0; i < this.size(); i++) { // todo sth wrong heres
             for (int j = 0; j < this.size(); j++) {
-                if (tileAt(i, j) != goal[i][j]) {
+                if (tileAt(i, j) != BLANK && tileAt(i, j) != goal[i][j]) {
                     int[] idx = indexOf(goal[i][j]);
                     diff = diff + Math.abs(idx[0] - i) + Math.abs(idx[1] - j);
                 }
@@ -151,10 +152,20 @@ public class Board implements WorldState {
         // type check and cast
         if (getClass() != y.getClass())
             return false;
+
         Board boardObj = (Board) y;
-        // field comparison
-        return Objects.equals(this.size, boardObj.size)
-                && Objects.equals(this.tiles, boardObj.tiles);
+        // size comparison
+        if (Objects.equals(this.size, boardObj.size))
+            return false;
+        // tiles comparison, cannot compare directly, should be in elemen/t
+        boolean ret;
+        for (int i = 0; i < this.size; i++) {
+            for (int j = 0; j < this.size; j++) {
+                if (this.tiles[i][j] == ((Board) y).tiles[i][j])
+                    return false;
+            }
+        }
+        return true;
     }
 
     public String toString() {

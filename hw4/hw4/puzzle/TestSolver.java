@@ -164,4 +164,13 @@ public class TestSolver {
             assertEquals("Wrong number of moves on " + puzzleName, bps.numMoves, s.moves());
         }
     }
+
+    // ==============
+    @Test
+    public void testHamming() {
+        int[][] arr = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
+        Board testBoard = new Board(arr);
+        System.out.println(testBoard.hamming());
+    }
 }
+
