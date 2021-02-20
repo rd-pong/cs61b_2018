@@ -172,5 +172,13 @@ public class TestSolver {
         Board testBoard = new Board(arr);
         System.out.println(testBoard.hamming());
     }
+
+    @Test
+    public void testEquals() {
+        int[][] arr = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
+        Board tb1 = new Board(arr);
+        Board tb2 = new Board(arr);
+        System.out.println(tb1.equals(tb2));
+    }
 }
 

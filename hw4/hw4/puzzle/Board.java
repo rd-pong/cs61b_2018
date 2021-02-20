@@ -155,13 +155,13 @@ public class Board implements WorldState {
 
         Board boardObj = (Board) y;
         // size comparison
-        if (Objects.equals(this.size, boardObj.size))
+        if (!Objects.equals(this.size, boardObj.size))
             return false;
         // tiles comparison, cannot compare directly, should be in elemen/t
         boolean ret;
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < this.size; j++) {
-                if (this.tiles[i][j] == ((Board) y).tiles[i][j])
+                if (this.tiles[i][j] != ((Board) y).tiles[i][j])
                     return false;
             }
         }
