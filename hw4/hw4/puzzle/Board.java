@@ -19,7 +19,9 @@ public class Board implements WorldState {
     public Board(int[][] tiles) {
         this.size = tiles.length;
         this.tiles = new int[size][size];
-        // tiles ( this.tiles = tiles;) Your Board class is mutable and you should be making a copy of the values in the passed tiles array. Please see the FAQ!
+
+        // tiles
+        // ( this.tiles = tiles;) Your Board class is mutable and you should be making a copy of the values in the passed tiles array. Please see the FAQ!
         for (int i = 0; i < this.size(); i++) {
             for (int j = 0; j < this.size(); j++) {
                 this.tiles[i][j] = tiles[i][j];
@@ -111,10 +113,9 @@ public class Board implements WorldState {
 
     public int manhattan() {
         int diff = 0;
-        for (int i = 0; i < this.size(); i++) {
+        for (int i = 0; i < this.size(); i++) { // todo sth wrong heres
             for (int j = 0; j < this.size(); j++) {
                 if (tileAt(i, j) != goal[i][j]) {
-                    // todo
                     int[] idx = indexOf(goal[i][j]);
                     diff = diff + Math.abs(idx[0] - i) + Math.abs(idx[1] - j);
                 }
@@ -137,6 +138,7 @@ public class Board implements WorldState {
 
     public int estimatedDistanceToGoal() {
         return manhattan();
+//        return hamming();
     }
 
     public boolean equals(Object y) {

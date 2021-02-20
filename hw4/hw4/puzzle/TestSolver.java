@@ -112,7 +112,8 @@ public class TestSolver {
 
     @Test(timeout = 40000)
     public void test3x3BoardPuzzles() {
-        for (int i = 0; i <= 30; i += 1) {
+        for (int i = 0; i <= 30; i += 1) { // todo fail from i = 16
+//        for (int i = 15; i <= 15; i += 1) {
             String pnum = String.format("%02d", i);
             String puzzleName = "input/puzzle3x3-" + pnum + ".txt";
             Board b = readBoard(puzzleName);
@@ -121,11 +122,26 @@ public class TestSolver {
             Solver s = new Solver(b);
             assertEquals("Wrong number of moves on " + puzzleName, bps.numMoves, s.moves());
         }
+
+    }
+
+    @Test(timeout = 40000)
+    public void myBoardTest() {
+        int i = 17; // todo 3x3 failed from i = 16, 4x4 failed from i = 17
+        String pnum = String.format("%02d", i);
+        String puzzleName = "input/puzzle3x3-" + pnum + ".txt";
+        Board b = readBoard(puzzleName);
+        int numMoves = i;
+        BoardPuzzleSolution bps = new BoardPuzzleSolution(puzzleName, b, numMoves);
+        Solver s = new Solver(b);
+        assertEquals("Wrong number of moves on " + puzzleName, bps.numMoves, s.moves());
+
     }
 
     @Test(timeout = 20000)
     public void test4x4BoardPuzzles() {
-        for (int i = 0; i <= 30; i += 1) {
+        for (int i = 0; i <= 30; i += 1) { // todo fail from i = 17
+//        for (int i = 17; i <= 17; i += 1) {
             String pnum = String.format("%02d", i);
             String puzzleName = "input/puzzle4x4-" + pnum + ".txt";
             Board b = readBoard(puzzleName);
@@ -138,7 +154,7 @@ public class TestSolver {
 
     @Test(timeout = 20000)
     public void testVariousPuzzles() {
-        for (int i = 0; i <= 31; i += 1) {
+        for (int i = 0; i <= 31; i += 1) { // todo failed from i = 14
             String pnum = String.format("%02d", i);
             String puzzleName = "input/puzzle" + pnum + ".txt";
             Board b = readBoard(puzzleName);

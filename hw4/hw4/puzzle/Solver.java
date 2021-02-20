@@ -104,8 +104,6 @@ public class Solver {
             }
 
             // todo reverse list
-
-
             return wsListFromInitial;
         }
     }
