@@ -99,7 +99,7 @@ public class Board implements WorldState {
         return neighbors;
     }
 
-    // todo if goal is blank, then do not count
+    // if goal is blank, then do not count
     public int hamming() {
         int diff = 0;
         for (int i = 0; i < this.size(); i++) {
@@ -114,9 +114,13 @@ public class Board implements WorldState {
 
     public int manhattan() {
         int diff = 0;
-        for (int i = 0; i < this.size(); i++) { // todo sth wrong heres
+        for (int i = 0; i < this.size(); i++) { // todo sth wrong here11111111111
             for (int j = 0; j < this.size(); j++) {
-                if (tileAt(i, j) != BLANK && tileAt(i, j) != goal[i][j]) {
+//                if (tileAt(i, j) != BLANK && tileAt(i, j) != goal[i][j]) {
+//                    int[] idx = indexOf(goal[i][j]);
+//                    diff = diff + Math.abs(idx[0] - i) + Math.abs(idx[1] - j);
+//                }
+                if (goal[i][j] != BLANK && goal[i][j] != tileAt(i, j)) {
                     int[] idx = indexOf(goal[i][j]);
                     diff = diff + Math.abs(idx[0] - i) + Math.abs(idx[1] - j);
                 }
@@ -125,7 +129,7 @@ public class Board implements WorldState {
         return diff;
     }
 
-    private int[] indexOf(int item) {
+    public int[] indexOf(int item) {
         int[] index;
         for (int i = 0; i < this.size(); i++) {
             for (int j = 0; j < this.size(); j++) {

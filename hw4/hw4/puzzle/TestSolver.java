@@ -112,8 +112,8 @@ public class TestSolver {
 
     @Test(timeout = 40000)
     public void test3x3BoardPuzzles() {
-        for (int i = 0; i <= 30; i += 1) { // todo fail from i = 16
-//        for (int i = 15; i <= 15; i += 1) {
+        for (int i = 0; i <= 30; i += 1) { // todo fail from i = 27
+//        for (int i = 25; i <= 24; i += 1) {
             String pnum = String.format("%02d", i);
             String puzzleName = "input/puzzle3x3-" + pnum + ".txt";
             Board b = readBoard(puzzleName);
@@ -127,7 +127,7 @@ public class TestSolver {
 
     @Test(timeout = 40000)
     public void myBoardTest() {
-        int i = 17; // todo 3x3 failed from i = 16, 4x4 failed from i = 17
+        int i = 27; // todo 3x3 failed from i = 27, 4x4 failed from i = 17
         String pnum = String.format("%02d", i);
         String puzzleName = "input/puzzle3x3-" + pnum + ".txt";
         Board b = readBoard(puzzleName);
@@ -179,6 +179,22 @@ public class TestSolver {
         Board tb1 = new Board(arr);
         Board tb2 = new Board(arr);
         System.out.println(tb1.equals(tb2));
+    }
+
+    @Test
+    public void testIndexOf() {
+        int[][] arr = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
+        Board tb1 = new Board(arr);
+        System.out.println(tb1.indexOf(3)[0]);
+        System.out.println(tb1.indexOf(3)[1]);
+    }
+
+    @Test
+    public void testManhattan() {
+        // int[][] arr = {{8, 1, 3}, {4, 0, 2}, {7, 6, 5}};
+        int[][] arr = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
+        Board testBoard = new Board(arr);
+        System.out.println(testBoard.manhattan());
     }
 }
 
