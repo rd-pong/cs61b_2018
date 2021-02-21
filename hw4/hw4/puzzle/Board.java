@@ -2,8 +2,6 @@ package hw4.puzzle;
 
 import edu.princeton.cs.algs4.Queue;
 
-import java.util.Objects;
-
 public class Board implements WorldState {
     private static final int BLANK = 0;
     private int size; // N by N
@@ -159,14 +157,16 @@ public class Board implements WorldState {
 
         Board boardObj = (Board) y;
         // size comparison
-        if (!Objects.equals(this.size, boardObj.size))
+        if (this.size != boardObj.size)
             return false;
+
         // tiles comparison, cannot compare directly, should be in elemen/t
         boolean ret;
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < this.size; j++) {
-                if (this.tiles[i][j] != ((Board) y).tiles[i][j])
+                if (this.tiles[i][j] != ((Board) y).tiles[i][j]) {
                     return false;
+                }
             }
         }
         return true;

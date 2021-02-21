@@ -125,23 +125,10 @@ public class TestSolver {
 
     }
 
-    @Test(timeout = 40000)
-    public void myBoardTest() {
-        int i = 27; // todo 3x3 failed from i = 27, 4x4 failed from i = 17
-        String pnum = String.format("%02d", i);
-        String puzzleName = "input/puzzle3x3-" + pnum + ".txt";
-        Board b = readBoard(puzzleName);
-        int numMoves = i;
-        BoardPuzzleSolution bps = new BoardPuzzleSolution(puzzleName, b, numMoves);
-        Solver s = new Solver(b);
-        assertEquals("Wrong number of moves on " + puzzleName, bps.numMoves, s.moves());
-
-    }
-
     @Test(timeout = 20000)
     public void test4x4BoardPuzzles() {
-        for (int i = 0; i <= 30; i += 1) { // todo fail from i = 17
-//        for (int i = 17; i <= 17; i += 1) {
+        for (int i = 0; i <= 30; i += 1) { // todo fail from i = 28
+//        for (int i = 28; i <= 28; i += 1) {
             String pnum = String.format("%02d", i);
             String puzzleName = "input/puzzle4x4-" + pnum + ".txt";
             Board b = readBoard(puzzleName);
@@ -175,9 +162,11 @@ public class TestSolver {
 
     @Test
     public void testEquals() {
-        int[][] arr = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
+//        int[][] arr = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
+        int[][] arr = {{1, 2}, {3, 0}};
+        int[][] arr2 = {{1, 3}, {2, 0}};
         Board tb1 = new Board(arr);
-        Board tb2 = new Board(arr);
+        Board tb2 = new Board(arr2);
         System.out.println(tb1.equals(tb2));
     }
 
@@ -195,6 +184,21 @@ public class TestSolver {
         int[][] arr = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
         Board testBoard = new Board(arr);
         System.out.println(testBoard.manhattan());
+    }
+
+    @Test(timeout = 40000)
+    public void myBoardTest() {
+//        int i = 27; // todo 3x3 failed from i = 27, 4x4 failed from i = 28
+//        String pnum = String.format("%02d", i);
+//        String puzzleName = "input/puzzle3x3-" + pnum + ".txt";
+        String puzzleName = "input/puzzle01.txt";
+        int numMoves = 2;
+
+        Board b = readBoard(puzzleName);
+        BoardPuzzleSolution bps = new BoardPuzzleSolution(puzzleName, b, numMoves);
+        Solver s = new Solver(b);
+        assertEquals("Wrong number of moves on " + puzzleName, bps.numMoves, s.moves());
+
     }
 }
 

@@ -93,17 +93,20 @@ public class Solver {
 
         public Iterable<WorldState> getWSFromInitial(int moveCount) {
             SearchNode solutionNode = this;
+            LinkedList<WorldState> wsListFromLast = new LinkedList<>();
             LinkedList<WorldState> wsListFromInitial = new LinkedList<>();
 
-            // put solution in the list
-            wsListFromInitial.add(solutionNode.ws);
-
+            wsListFromLast.add(solutionNode.ws); // put solution in the list
             for (int i = 0; i < moveCount; i++) {
-                wsListFromInitial.add(solutionNode.getPrevNode().getWs());
+                wsListFromLast.add(solutionNode.getPrevNode().getWs());
                 solutionNode = solutionNode.getPrevNode();
             }
 
-            // todo reverse list
+            // todo reverse list (wsListFromLast --> wsListFromInitial)
+            for (int i = moveCount; i >= 0; i--) {
+                wsListFromInitial.add(wsListFromLast.get(i));
+            }
+
             return wsListFromInitial;
         }
     }
