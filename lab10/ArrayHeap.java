@@ -1,5 +1,6 @@
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * A Generic heap class. Unlike Java's priority queue, this heap doesn't just
@@ -27,24 +28,24 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Returns the index of the node to the left of the node at i.
      */
     private static int leftIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        /* TOD: Your code here! */
+        return 2 * i;
     }
 
     /**
      * Returns the index of the node to the right of the node at i.
      */
     private static int rightIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        /* TOD: Your code here! */
+        return 2 * i + 1;
     }
 
     /**
      * Returns the index of the node that is the parent of the node at i.
      */
     private static int parentIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        /* TOD: Your code here! */
+        return i / 2;
     }
 
     /**
@@ -107,8 +108,14 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
-        return;
+        /** TODO: swim */
+        if (index == 1) {
+            return;
+        }
+        while (getNode(index).priority() < getNode(parentIndex(index)).priority()) {
+            swap(index, parentIndex(index));
+            swim(parentIndex(index));
+        }
     }
 
     /**
@@ -118,8 +125,20 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
-        return;
+        /** TODO: sink*/
+        if (!hasChild(index)) {
+            return;
+        }
+        while (getNode(index).priority() > getNode(leftIndex(index)).priority() ||
+                getNode(index).priority() > getNode(rightIndex(index)).priority()) {
+            if (index - leftIndex(index) > index - rightIndex(index)) {
+                swap(index, leftIndex(index));
+                sink(leftIndex(index));
+            } else {
+                swap(index, rightIndex(index));
+                sink(rightIndex(index));
+            }
+        }
     }
 
     /**
@@ -133,7 +152,20 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             resize(contents.length * 2);
         }
 
-        /* TODO: Your code here! */
+        /* TODO: insert */
+        Node node = new Node(item, priority);
+        int index = size + 1;
+        contents[index] = node;
+        size++;
+        swim(index);
+
+    }
+
+    public boolean hasChild(int index) {
+        if (!inBounds(leftIndex(index)) && !inBounds(rightIndex(index))) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -142,8 +174,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T peek() {
-        /* TODO: Your code here! */
-        return null;
+        /* TODO: peek */
+        return contents[1].item();
     }
 
     /**
@@ -158,7 +190,25 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T removeMin() {
         /* TODO: Your code here! */
-        return null;
+//        T ret = contents[1].item();
+//        swap(1, this.size());
+//        contents[this.size()] = null;
+//        size--;
+//        if (size > 0)
+//            this.sink(1);
+//        return ret;
+
+        int last = size();
+        T removed = contents[1].item();
+
+        swap(1, last);
+        contents[last] = null;  // Nulling out the removed node
+        size -= 1;
+        if (size > 0) {
+            sink(1);            // Sink the promoted node
+        }
+
+        return removed;
     }
 
     /**
@@ -238,7 +288,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             myPriority = priority;
         }
 
-        public T item(){
+        public T item() {
             return myItem;
         }
 
@@ -253,7 +303,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     }
 
 
-    /** Helper function to resize the backing array when necessary. */
+    /**
+     * Helper function to resize the backing array when necessary.
+     */
     private void resize(int capacity) {
         Node[] temp = new ArrayHeap.Node[capacity];
         for (int i = 1; i < this.contents.length; i++) {

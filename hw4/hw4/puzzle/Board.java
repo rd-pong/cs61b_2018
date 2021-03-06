@@ -127,7 +127,7 @@ public class Board implements WorldState {
         return diff;
     }
 
-    public int[] indexOf(int item) {
+    private int[] indexOf(int item) {
         int[] index;
         for (int i = 0; i < this.size(); i++) {
             for (int j = 0; j < this.size(); j++) {

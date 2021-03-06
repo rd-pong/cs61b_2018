@@ -102,7 +102,7 @@ public class Solver {
                 solutionNode = solutionNode.getPrevNode();
             }
 
-            // todo reverse list (wsListFromLast --> wsListFromInitial)
+            // reverse list (wsListFromLast --> wsListFromInitial)
             for (int i = moveCount; i >= 0; i--) {
                 wsListFromInitial.add(wsListFromLast.get(i));
             }

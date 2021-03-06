@@ -170,13 +170,13 @@ public class TestSolver {
         System.out.println(tb1.equals(tb2));
     }
 
-    @Test
-    public void testIndexOf() {
-        int[][] arr = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
-        Board tb1 = new Board(arr);
-        System.out.println(tb1.indexOf(3)[0]);
-        System.out.println(tb1.indexOf(3)[1]);
-    }
+//    @Test
+//    public void testIndexOf() {
+//        int[][] arr = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
+//        Board tb1 = new Board(arr);
+//        System.out.println(tb1.indexOf(3)[0]);
+//        System.out.println(tb1.indexOf(3)[1]);
+//    }
 
     @Test
     public void testManhattan() {
@@ -186,13 +186,13 @@ public class TestSolver {
         System.out.println(testBoard.manhattan());
     }
 
-    @Test(timeout = 40000)
+    @Test(timeout = 80000)
     public void myBoardTest() {
-//        int i = 27; // todo 3x3 failed from i = 27, 4x4 failed from i = 28
-//        String pnum = String.format("%02d", i);
-//        String puzzleName = "input/puzzle3x3-" + pnum + ".txt";
-        String puzzleName = "input/puzzle01.txt";
-        int numMoves = 2;
+        int i = 27; // todo 3x3 failed from i = 27, 4x4 failed from i = 28
+        String pnum = String.format("%02d", i);
+        String puzzleName = "input/puzzle3x3-" + pnum + ".txt";
+//        String puzzleName = "input/puzzle01.txt";
+        int numMoves = i;
 
         Board b = readBoard(puzzleName);
         BoardPuzzleSolution bps = new BoardPuzzleSolution(puzzleName, b, numMoves);
