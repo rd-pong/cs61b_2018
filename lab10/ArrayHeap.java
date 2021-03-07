@@ -247,13 +247,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             }
         }
 
+        double prevPriority = getNode(changeIndex).priority();
         contents[changeIndex].myPriority = priority;
 
         // compare with parent
-        if (min(changeIndex, parentIndex(changeIndex)) == changeIndex) {
+        if (prevPriority > priority) {
             swim(changeIndex);
-        } else if (min(changeIndex, leftIndex(changeIndex)) == leftIndex(changeIndex) ||
-                min(changeIndex, rightIndex(changeIndex)) == rightIndex(changeIndex)) {
+        } else if (prevPriority < priority) {
             sink(changeIndex);
         }
 
@@ -506,6 +506,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         pq.insert("d", 4);
 
         pq.changePriority("h", 0);
+        System.out.println(pq.toString());
     }
 
 }
