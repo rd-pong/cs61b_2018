@@ -112,7 +112,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         if (index == 1) {
             return;
         }
-        while (getNode(index).priority() < getNode(parentIndex(index)).priority()) {
+        if (getNode(index).priority() < getNode(parentIndex(index)).priority()) {
             swap(index, parentIndex(index));
             swim(parentIndex(index));
         }
@@ -126,18 +126,27 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: sink*/
-        if (!hasChild(index)) {
+        int leftIndex = leftIndex(index);
+        boolean hasLeft = leftIndex <= size;
+        if (!hasLeft) { // Have sank down to the bottom
             return;
         }
-        while (getNode(index).priority() > getNode(leftIndex(index)).priority() ||
-                getNode(index).priority() > getNode(rightIndex(index)).priority()) {
-            if (index - leftIndex(index) > index - rightIndex(index)) {
-                swap(index, leftIndex(index));
-                sink(leftIndex(index));
+        int vsLeft = min(index, leftIndex);
+        int rightIndex = rightIndex(index);
+        boolean hasRight = rightIndex <= size;
+        if (vsLeft == leftIndex) {
+            if (hasRight && min(leftIndex, rightIndex) == rightIndex) {
+                swap(index, rightIndex);
+                sink(rightIndex);
             } else {
-                swap(index, rightIndex(index));
-                sink(rightIndex(index));
+                swap(index, leftIndex);
+                sink(leftIndex);
             }
+        }
+        if (hasRight && min(index, rightIndex) == rightIndex) {
+            // There is no case when `leftVsRight == leftIndex
+            swap(index, rightIndex);
+            sink(rightIndex);
         }
     }
 
