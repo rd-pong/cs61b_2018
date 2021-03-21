@@ -28,6 +28,7 @@ public class MazeBreadthFirstPaths extends MazeExplorer {
         t = maze.xyTo1D(targetX, targetY);
         distTo[s] = 0;
         edgeTo[s] = s;
+        marked[s] = true;
     }
 
     /**
@@ -42,7 +43,6 @@ public class MazeBreadthFirstPaths extends MazeExplorer {
         } else {
             fringe.enqueue(v);
         }
-        announce();
 
         while (!fringe.isEmpty()) {
             v = fringe.dequeue();
