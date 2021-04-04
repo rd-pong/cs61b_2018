@@ -94,6 +94,9 @@ public class QuickSort {
         unsort.enqueue(3);
         unsort.enqueue(2);
         unsort.enqueue(1);
+        unsort.enqueue(11);
+        unsort.enqueue(12);
+        unsort.enqueue(13);
 
         Queue<Integer> partLess = new Queue<>();
         Queue<Integer> partEqual = new Queue<>();
