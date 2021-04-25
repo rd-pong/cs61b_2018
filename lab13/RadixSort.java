@@ -15,7 +15,7 @@ public class RadixSort {
      */
     public static String[] sort(String[] asciis) {
         // TODO: Implement LSD Sort
-        for (int i = 0; i < asciis[0].length(); i++) {
+        for (int i = asciis[0].length() - 1; i >= 0; i--) {
             sortHelperLSD(asciis, i);
         }
         return null;
@@ -58,8 +58,11 @@ public class RadixSort {
     }
 
     public static void main(String[] args) {
-        String[] testString = {"ccc", "abc", "def", "ghi", "jkl"};
+        String[] testString = { "jkc", "ccc", "abc", "def", "ghi", "aaa"};
         sortHelperLSD(testString, 1);
-        System.out.println(testString.toString());
+        sort(testString);
+        for (String str : testString) {
+            System.out.print(str + ", ");
+        }
     }
 }
